@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Etherium Foundation</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+        color: #333;
+        overflow-x: hidden;
+      }
+
+      #bouncing-logo {
+        position: fixed;
+        width: 150px;
+        height: 150px;
+        background-color: #627eea;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3em;
+        font-weight: bold;
+        color: white;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        pointer-events: none;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 50px 20px;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      h1 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 1.2em;
+        line-height: 1.6;
+        margin-bottom: 30px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .cta-button {
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: #627eea;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1.2em;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+
+      .cta-button:hover {
+        background-color: #4a67d9;
+      }
+
+      .features {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 50px;
+      }
+
+      .feature {
+        flex-basis: 30%;
+        min-width: 250px;
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature h2 {
+        color: #627eea;
+      }
+
+      footer {
+        margin-top: 50px;
+        padding: 20px;
+        background-color: #333;
+        color: white;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Bouncing logo element -->
+    <div id="bouncing-logo"><img src="logo.png" /></div>
+
+    <div class="container">
+      <h1>Welcome to the Etherium Foundation</h1>
+
+      <p>
+        Empowering a decentralized future through innovation, community, and
+        bold technology.
+      </p>
+
+      <a href="https://t.me/+_IL8k0K9oLo3ZTlk" class="cta-button"
+        >Join Our Community</a
+      >
+
+      <div class="features">
+        <div class="feature">
+          <h2>Decentralization</h2>
+          <p>
+            Building the infrastructure for a more open and accessible digital
+            economy.
+          </p>
+        </div>
+
+        <div class="feature">
+          <h2>Innovation</h2>
+          <p>
+            Pioneering breakthrough technologies that reshape how we interact
+            online.
+          </p>
+        </div>
+
+        <div class="feature">
+          <h2>Community</h2>
+          <p>
+            Growing a global network of developers, creators, and visionaries.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <footer>&copy; 2025 Etherium Foundation. All rights reserved.</footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const logo = document.getElementById("bouncing-logo");
+
+        // Set initial position
+        const logoWidth = 150;
+        const logoHeight = 150;
+        let posX = Math.random() * (window.innerWidth - logoWidth);
+        let posY = Math.random() * (window.innerHeight - logoHeight);
+
+        // Make sure logo has an initial position set
+        logo.style.left = posX + "px";
+        logo.style.top = posY + "px";
+
+        // Set initial velocity (pixels per frame)
+        let velX = 4;
+        let velY = 4;
+
+        // Colors for the logo
+        const colors = [
+          "#627eea", // Blue
+          "#ff6b6b", // Red
+          "#5cdb95", // Green
+          "#ffd966", // Yellow
+          "#c792ea", // Purple
+          "#ff9a3c", // Orange
+          "#00bcd4", // Cyan
+          "#ff85a2", // Pink
+        ];
+
+        let currentColorIndex = 0;
+
+        // Handle window resize
+        window.addEventListener("resize", function () {
+          // Keep logo within bounds after resize
+          if (posX > window.innerWidth - logoWidth) {
+            posX = window.innerWidth - logoWidth;
+            logo.style.left = posX + "px";
+          }
+          if (posY > window.innerHeight - logoHeight) {
+            posY = window.innerHeight - logoHeight;
+            logo.style.top = posY + "px";
+          }
+        });
+
+        function updateLogoPosition() {
+          // Update position
+          posX += velX;
+          posY += velY;
+
+          // Check for collision with window edges
+          if (posX <= 0 || posX >= window.innerWidth - logoWidth) {
+            velX = -velX; // Reverse direction
+            changeColor();
+          }
+
+          if (posY <= 0 || posY >= window.innerHeight - logoHeight) {
+            velY = -velY; // Reverse direction
+            changeColor();
+          }
+
+          // Ensure logo stays within bounds
+          posX = Math.max(0, Math.min(window.innerWidth - logoWidth, posX));
+          posY = Math.max(0, Math.min(window.innerHeight - logoHeight, posY));
+
+          // Apply new position
+          logo.style.left = posX + "px";
+          logo.style.top = posY + "px";
+
+          // Request next animation frame
+          requestAnimationFrame(updateLogoPosition);
+        }
+
+        function changeColor() {
+          currentColorIndex = (currentColorIndex + 1) % colors.length;
+          logo.style.backgroundColor = colors[currentColorIndex];
+        }
+
+        // Start animation
+        updateLogoPosition();
+      });
+    </script>
+  </body>
+</html>
